@@ -1,0 +1,309 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>Python 语法糖 | Gridea</title>
+<meta name="description" content="成我以理，博我以文">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://YangXu636.github.io/favicon.ico?v=1703319350748">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://YangXu636.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://YangXu636.github.io">
+        <img class="avatar" src="https://YangXu636.github.io/images/avatar.png?v=1703319350748" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://YangXu636.github.io">
+        <h1 class="site-title">Gridea</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">Python 语法糖</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2023-12-23</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://YangXu636.github.io/tag/Hq3zHgfgV/">
+                    Python
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content" v-pre>
+            <h1 id="1下划线分割数字">1.下划线分割数字</h1>
+<p><code>a = 1000000000</code>  等价于 <code>a = 10_0000_0000</code></p>
+<pre><code class="language-python">&gt;&gt;&gt; a = 10_0000_0000
+&gt;&gt;&gt; a
+1000000000
+</code></pre>
+<h1 id="2交换变量值">2.交换变量值</h1>
+<p>如：<code>a, b = b, a</code></p>
+<pre><code class="language-python">&gt;&gt;&gt; a, b = 1, 2
+&gt;&gt;&gt; a, b = b, a
+&gt;&gt;&gt; a
+2
+&gt;&gt;&gt; b
+1
+</code></pre>
+<h1 id="3判断范围">3.判断范围</h1>
+<p><code>if 90&lt;=a and a&lt;=100:</code>  等价于 <code>if 90&lt;=a&lt;=100:</code></p>
+<pre><code class="language-python">&gt;&gt;&gt; a = 9
+&gt;&gt;&gt; if  5 &lt;= a &lt;= 10:
+...     print(&quot;Yes&quot;)
+...
+Yes
+</code></pre>
+<h1 id="4快速构造字符串">4.快速构造字符串</h1>
+<pre><code class="language-python">&gt;&gt;&gt; print(&quot;*&quot;*20)
+********************
+&gt;&gt;&gt; print(&quot;#&quot;*50)
+##################################################
+&gt;&gt;&gt; print(&quot;好欸&quot;*30)
+好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸
+&gt;&gt;&gt;
+</code></pre>
+<h1 id="5-列表">5 列表</h1>
+<h2 id="51-切片">5.1 切片</h2>
+<p>切片(slice)是对序列型对象(如list, string, tuple)的一种高级索引方法。普通索引只取出序列中一个下标对应的元素，而切片取出序列中一个范围对应的元素，这里的范围不是狭义上的连续片段。</p>
+<p>切片语法：<code>a[start:stop:step]</code>，其中<code>start</code>、<code>stop</code>均可缺省（<code>step</code>为可选参数）<br>
+其中<code>start</code>和<code>stop</code>为负数时，简单看作是负数下标对应的位置即可</p>
+<h3 id="511-有效索引范围">5.1.1 有效索引范围</h3>
+<p>若<code>a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</code>，则有索引范围：<img src="https://YangXu636.github.io/post-images/1703303761201.png" alt="" loading="lazy"><br>
+其中非负下标和负数下标共同构成了列表的有效索引范围<br>
+在基本索引中，索引超出有效范围时会抛出<code>IndexError</code>异常：</p>
+<pre><code class="language-python">&gt;&gt;&gt; a
+ [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+ &gt;&gt;&gt; a[10]
+ Traceback (most recent call last):
+   File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+ IndexError: list index out of range
+ &gt;&gt;&gt; a[-11]
+ Traceback (most recent call last):
+   File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+ IndexError: list index out of range
+</code></pre>
+<h3 id="512-超出有效索引范围">5.1.2 超出有效索引范围</h3>
+<p>当<code>start</code>或<code>stop</code>超出有效索引范围​时，切片操作不会抛出异常，而是进行截断。可以这样去理解截断机制：我们假象把索引范围扩充到全体整数，只不过小于​或大于​的区域对应空元素，在这个扩充后的数轴上进行切片，只需把最终结果中的所有空元素忽略即可。如果<code>start</code>的位置比<code>stop</code>还靠后则直接返回空序列</p>
+<h3 id="513-例子">5.1.3 例子</h3>
+<pre><code class="language-python">&gt;&gt;&gt; a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+&gt;&gt;&gt; a[3]
+3
+&gt;&gt;&gt; a[3:]
+[3, 4, 5, 6, 7, 8, 9]
+&gt;&gt;&gt; a[:-5]
+[0, 1, 2, 3, 4]
+&gt;&gt;&gt; a[2:-3]
+[2, 3, 4, 5, 6]
+&gt;&gt;&gt; a[2:-3:2]
+[2, 4, 6]
+&gt;&gt;&gt; a[::3]
+[0, 3, 6, 9]
+&gt;&gt;&gt; a[4::2]
+[4, 6, 8]
+&gt;&gt;&gt; a[::-1]
+[9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+&gt;&gt;&gt; a[3::-2]
+[3, 1]
+&gt;&gt;&gt; a[1000:]
+[]
+&gt;&gt;&gt; a[1000:100]
+[]
+</code></pre>
+<h2 id="52-列表推导式">5.2 列表推导式</h2>
+<h3 id="521-首例感知">5.2.1 首例感知</h3>
+<p><code>a = [1, 2, 3, 4]</code></p>
+<pre><code class="language-python">&gt;&gt;&gt; b = []
+&gt;&gt;&gt; for i in a:
+...     b.append(i+233)
+...
+&gt;&gt;&gt; b
+[234, 235, 236, 237]
+</code></pre>
+<p>等价于</p>
+<pre><code class="language-python">&gt;&gt;&gt; b = [i+233 for i in a]
+&gt;&gt;&gt; b
+[234, 235, 236, 237]
+</code></pre>
+<h3 id="522-单层for循环">5.2.2 单层<code>for</code>循环</h3>
+<p>列表中遍历可迭代对象并进行操作后成为列表成员<br>
+解释首例：</p>
+<pre><code class="language-python">a = [1, 2, 3, 4] 
+b = [i+233 for i in a]
+'''
+    for i in a 的作用：首先用for循环遍历列表a，将列表a的每个元素一次取出赋值给 i
+    i+233 作用：依次将 i 的数值 +233 后作为元素之一添加进列表b 
+'''
+</code></pre>
+<p>更多例子：</p>
+<pre><code class="language-python">&gt;&gt;&gt; a = [{&quot;名字&quot;:&quot;A&quot;,&quot;暗号&quot;:162},{&quot;名字&quot;:&quot;小红&quot;,&quot;暗号&quot;:&quot;an_hao&quot;},{&quot;名字&quot;:&quot;李华&quot;,&quot;暗号&quot;:&quot;帮我写英语作文&quot;}]
+&gt;&gt;&gt; b = [i[&quot;名字&quot;] for i in a]
+&gt;&gt;&gt; b
+['A', '小红', '李华']
+&gt;&gt;&gt; b = [str(i[&quot;暗号&quot;]) for i in a]
+&gt;&gt;&gt; b
+['162', 'an_hao', '帮我写英语作文']
+&gt;&gt;&gt; b = [f&quot;{k['名字']} 的暗号是：{k['暗号']}&quot; for k in a]
+&gt;&gt;&gt; b
+['A 的暗号是：162', '小红 的暗号是：an_hao', '李华 的暗号是：帮我写英语作文']
+&gt;&gt;&gt;
+&gt;&gt;&gt; a = {&quot;A&quot;:&quot;162&quot;,&quot;小红&quot;:&quot;an_hao&quot;,&quot;李华&quot;:&quot;帮我写英语作文&quot;}
+&gt;&gt;&gt; b = []
+&gt;&gt;&gt; b
+[]
+&gt;&gt;&gt; b = [f&quot;{i} 的暗号是：{j}&quot; for i,j in a.items()]
+&gt;&gt;&gt; b
+['A 的暗号是：162', '小红 的暗号是：an_hao', '李华 的暗号是：帮我写英语作文']
+&gt;&gt;&gt;
+</code></pre>
+<h3 id="523-多层for循环嵌套">5.2.3 多层<code>for</code>循环嵌套</h3>
+<h3 id="524-含if的for循环">5.2.4 含<code>if</code>的<code>for</code>循环</h3>
+<h3 id="525-含if-else的for循环">5.2.5 含<code>if</code> <code>else</code>的<code>for</code>循环</h3>
+<h1 id="6-打包与解包">6 打包与解包</h1>
+<pre><code class="language-python">&gt;&gt;&gt; a = (1,2,3)
+&gt;&gt;&gt; x,y,z = a
+&gt;&gt;&gt; x; y; z
+1
+2
+3
+&gt;&gt;&gt; b = (x,y,z)
+&gt;&gt;&gt; b
+(1, 2, 3)
+&gt;&gt;&gt;
+</code></pre>
+<h1 id="7-with语句">7 with语句</h1>
+<h2 id="71-with-open">7.1 with open</h2>
+<pre><code class="language-python">&gt;&gt;&gt; f = open(&quot;test.txt&quot;,&quot;r&quot;)
+&gt;&gt;&gt; data = f.read()
+&gt;&gt;&gt; data
+&quot;这是数据&quot;
+&gt;&gt;&gt; f.close()   #擦屁股！
+</code></pre>
+<p>等价于</p>
+<pre><code class="language-python">&gt;&gt;&gt; with open(&quot;test.txt&quot;,&quot;r&quot;) as f:
+        data = f.read()
+
+&gt;&gt;&gt; data
+&quot;这是数据&quot;
+</code></pre>
+<p>免去忘记关闭文件造成未知错误</p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://YangXu636.github.io/post/hello-gridea/">
+              <h3 class="post-title">
+                下一篇：Hello Gridea
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">成我以理，博我以文</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://YangXu636.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

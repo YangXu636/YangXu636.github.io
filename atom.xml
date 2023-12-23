@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://YangXu636.github.io</id>
+    <title>Gridea</title>
+    <updated>2023-12-23T08:20:23.032Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://YangXu636.github.io"/>
+    <link rel="self" href="https://YangXu636.github.io/atom.xml"/>
+    <subtitle>成我以理，博我以文</subtitle>
+    <logo>https://YangXu636.github.io/images/avatar.png</logo>
+    <icon>https://YangXu636.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2023, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[Python 语法糖]]></title>
+        <id>https://YangXu636.github.io/post/python-yufatang/</id>
+        <link href="https://YangXu636.github.io/post/python-yufatang/">
+        </link>
+        <updated>2023-12-23T01:43:50.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="1下划线分割数字">1.下划线分割数字</h1>
+<p><code>a = 1000000000</code>  等价于 <code>a = 10_0000_0000</code></p>
+<pre><code class="language-python">&gt;&gt;&gt; a = 10_0000_0000
+&gt;&gt;&gt; a
+1000000000
+</code></pre>
+<h1 id="2交换变量值">2.交换变量值</h1>
+<p>如：<code>a, b = b, a</code></p>
+<pre><code class="language-python">&gt;&gt;&gt; a, b = 1, 2
+&gt;&gt;&gt; a, b = b, a
+&gt;&gt;&gt; a
+2
+&gt;&gt;&gt; b
+1
+</code></pre>
+<h1 id="3判断范围">3.判断范围</h1>
+<p><code>if 90&lt;=a and a&lt;=100:</code>  等价于 <code>if 90&lt;=a&lt;=100:</code></p>
+<pre><code class="language-python">&gt;&gt;&gt; a = 9
+&gt;&gt;&gt; if  5 &lt;= a &lt;= 10:
+...     print(&quot;Yes&quot;)
+...
+Yes
+</code></pre>
+<h1 id="4快速构造字符串">4.快速构造字符串</h1>
+<pre><code class="language-python">&gt;&gt;&gt; print(&quot;*&quot;*20)
+********************
+&gt;&gt;&gt; print(&quot;#&quot;*50)
+##################################################
+&gt;&gt;&gt; print(&quot;好欸&quot;*30)
+好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸好欸
+&gt;&gt;&gt;
+</code></pre>
+<h1 id="5-列表">5 列表</h1>
+<h2 id="51-切片">5.1 切片</h2>
+<p>切片(slice)是对序列型对象(如list, string, tuple)的一种高级索引方法。普通索引只取出序列中一个下标对应的元素，而切片取出序列中一个范围对应的元素，这里的范围不是狭义上的连续片段。</p>
+<p>切片语法：<code>a[start:stop:step]</code>，其中<code>start</code>、<code>stop</code>均可缺省（<code>step</code>为可选参数）<br>
+其中<code>start</code>和<code>stop</code>为负数时，简单看作是负数下标对应的位置即可</p>
+<h3 id="511-有效索引范围">5.1.1 有效索引范围</h3>
+<p>若<code>a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</code>，则有索引范围：<img src="https://YangXu636.github.io/post-images/1703303761201.png" alt="" loading="lazy"><br>
+其中非负下标和负数下标共同构成了列表的有效索引范围<br>
+在基本索引中，索引超出有效范围时会抛出<code>IndexError</code>异常：</p>
+<pre><code class="language-python">&gt;&gt;&gt; a
+ [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+ &gt;&gt;&gt; a[10]
+ Traceback (most recent call last):
+   File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+ IndexError: list index out of range
+ &gt;&gt;&gt; a[-11]
+ Traceback (most recent call last):
+   File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+ IndexError: list index out of range
+</code></pre>
+<h3 id="512-超出有效索引范围">5.1.2 超出有效索引范围</h3>
+<p>当<code>start</code>或<code>stop</code>超出有效索引范围​时，切片操作不会抛出异常，而是进行截断。可以这样去理解截断机制：我们假象把索引范围扩充到全体整数，只不过小于​或大于​的区域对应空元素，在这个扩充后的数轴上进行切片，只需把最终结果中的所有空元素忽略即可。如果<code>start</code>的位置比<code>stop</code>还靠后则直接返回空序列</p>
+<h3 id="513-例子">5.1.3 例子</h3>
+<pre><code class="language-python">&gt;&gt;&gt; a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+&gt;&gt;&gt; a[3]
+3
+&gt;&gt;&gt; a[3:]
+[3, 4, 5, 6, 7, 8, 9]
+&gt;&gt;&gt; a[:-5]
+[0, 1, 2, 3, 4]
+&gt;&gt;&gt; a[2:-3]
+[2, 3, 4, 5, 6]
+&gt;&gt;&gt; a[2:-3:2]
+[2, 4, 6]
+&gt;&gt;&gt; a[::3]
+[0, 3, 6, 9]
+&gt;&gt;&gt; a[4::2]
+[4, 6, 8]
+&gt;&gt;&gt; a[::-1]
+[9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+&gt;&gt;&gt; a[3::-2]
+[3, 1]
+&gt;&gt;&gt; a[1000:]
+[]
+&gt;&gt;&gt; a[1000:100]
+[]
+</code></pre>
+<h2 id="52-列表推导式">5.2 列表推导式</h2>
+<h3 id="521-首例感知">5.2.1 首例感知</h3>
+<p><code>a = [1, 2, 3, 4]</code></p>
+<pre><code class="language-python">&gt;&gt;&gt; b = []
+&gt;&gt;&gt; for i in a:
+...     b.append(i+233)
+...
+&gt;&gt;&gt; b
+[234, 235, 236, 237]
+</code></pre>
+<p>等价于</p>
+<pre><code class="language-python">&gt;&gt;&gt; b = [i+233 for i in a]
+&gt;&gt;&gt; b
+[234, 235, 236, 237]
+</code></pre>
+<h3 id="522-单层for循环">5.2.2 单层<code>for</code>循环</h3>
+<p>列表中遍历可迭代对象并进行操作后成为列表成员<br>
+解释首例：</p>
+<pre><code class="language-python">a = [1, 2, 3, 4] 
+b = [i+233 for i in a]
+'''
+    for i in a 的作用：首先用for循环遍历列表a，将列表a的每个元素一次取出赋值给 i
+    i+233 作用：依次将 i 的数值 +233 后作为元素之一添加进列表b 
+'''
+</code></pre>
+<p>更多例子：</p>
+<pre><code class="language-python">&gt;&gt;&gt; a = [{&quot;名字&quot;:&quot;A&quot;,&quot;暗号&quot;:162},{&quot;名字&quot;:&quot;小红&quot;,&quot;暗号&quot;:&quot;an_hao&quot;},{&quot;名字&quot;:&quot;李华&quot;,&quot;暗号&quot;:&quot;帮我写英语作文&quot;}]
+&gt;&gt;&gt; b = [i[&quot;名字&quot;] for i in a]
+&gt;&gt;&gt; b
+['A', '小红', '李华']
+&gt;&gt;&gt; b = [str(i[&quot;暗号&quot;]) for i in a]
+&gt;&gt;&gt; b
+['162', 'an_hao', '帮我写英语作文']
+&gt;&gt;&gt; b = [f&quot;{k['名字']} 的暗号是：{k['暗号']}&quot; for k in a]
+&gt;&gt;&gt; b
+['A 的暗号是：162', '小红 的暗号是：an_hao', '李华 的暗号是：帮我写英语作文']
+&gt;&gt;&gt;
+&gt;&gt;&gt; a = {&quot;A&quot;:&quot;162&quot;,&quot;小红&quot;:&quot;an_hao&quot;,&quot;李华&quot;:&quot;帮我写英语作文&quot;}
+&gt;&gt;&gt; b = []
+&gt;&gt;&gt; b
+[]
+&gt;&gt;&gt; b = [f&quot;{i} 的暗号是：{j}&quot; for i,j in a.items()]
+&gt;&gt;&gt; b
+['A 的暗号是：162', '小红 的暗号是：an_hao', '李华 的暗号是：帮我写英语作文']
+&gt;&gt;&gt;
+</code></pre>
+<h3 id="523-多层for循环嵌套">5.2.3 多层<code>for</code>循环嵌套</h3>
+<h3 id="524-含if的for循环">5.2.4 含<code>if</code>的<code>for</code>循环</h3>
+<h3 id="525-含if-else的for循环">5.2.5 含<code>if</code> <code>else</code>的<code>for</code>循环</h3>
+<h1 id="6-打包与解包">6 打包与解包</h1>
+<pre><code class="language-python">&gt;&gt;&gt; a = (1,2,3)
+&gt;&gt;&gt; x,y,z = a
+&gt;&gt;&gt; x; y; z
+1
+2
+3
+&gt;&gt;&gt; b = (x,y,z)
+&gt;&gt;&gt; b
+(1, 2, 3)
+&gt;&gt;&gt;
+</code></pre>
+<h1 id="7-with语句">7 with语句</h1>
+<h2 id="71-with-open">7.1 with open</h2>
+<pre><code class="language-python">&gt;&gt;&gt; f = open(&quot;test.txt&quot;,&quot;r&quot;)
+&gt;&gt;&gt; data = f.read()
+&gt;&gt;&gt; data
+&quot;这是数据&quot;
+&gt;&gt;&gt; f.close()   #擦屁股！
+</code></pre>
+<p>等价于</p>
+<pre><code class="language-python">&gt;&gt;&gt; with open(&quot;test.txt&quot;,&quot;r&quot;) as f:
+        data = f.read()
+
+&gt;&gt;&gt; data
+&quot;这是数据&quot;
+</code></pre>
+<p>免去忘记关闭文件造成未知错误</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Hello Gridea]]></title>
+        <id>https://YangXu636.github.io/post/hello-gridea/</id>
+        <link href="https://YangXu636.github.io/post/hello-gridea/">
+        </link>
+        <updated>2018-12-11T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+<!-- more -->
+<p><a href="https://github.com/getgridea/gridea">Github</a><br>
+<a href="https://gridea.dev/">Gridea 主页</a><br>
+<a href="https://fehey.com/">示例网站</a></p>
+<h2 id="特性">特性👇</h2>
+<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
+<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
+<p>🏷️  你可以对文章进行标签分组</p>
+<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
+<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
+<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
+<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
+<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
+<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
+<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
+<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
+<p>未来，它一定会成为你离不开的伙伴</p>
+<p>尽情发挥你的才华吧！</p>
+<p>😘 Enjoy~</p>
+]]></content>
+    </entry>
+</feed>
